@@ -1,380 +1,244 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GameHub PRO — Скачать игры</title>
-  <meta name="description" content="Лучший сайт для скачивания игр на ПК и телефон. Бесплатные и взломанные версии игр." />
-  <meta name="keywords" content="скачать игры, взломанные игры, скачать игры на телефон, PC игры, бесплатные игры" />
-  <meta name="author" content="GameHub PRO" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>GameHub PRO — Скачать игры</title>
+<meta name="description" content="GameHub PRO — каталог игр для ПК и телефонов. Официальные ссылки, предупреждения про модификации и торренты." />
+<style>
+  :root{
+    --bg:#0d0f21; --card:#1f2345; --accent1:#3a8dff; --accent2:#5cd1ff; --accent3:#9851ff;
+    --muted:#a8bbffcc; --white:#eaf3ff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--white);-webkit-font-smoothing:antialiased}
+  header{
+    background: linear-gradient(90deg,var(--accent1),var(--accent2),var(--accent3));
+    padding:32px 16px;text-align:center;font-weight:800;font-size:clamp(20px,4vw,36px);
+    box-shadow:0 6px 24px rgba(58,141,255,0.12);user-select:none;
+  }
+  .container{max-width:1100px;margin:28px auto;padding:0 16px}
+  .notice{background:#122033;border-radius:12px;padding:14px 16px;margin-bottom:18px;color:var(--muted);font-size:0.95rem}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+  .card{background:var(--card);border-radius:16px;padding:20px;display:flex;flex-direction:column;align-items:center;transition:transform .25s ease,box-shadow .25s ease}
+  .card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(58,141,255,0.08)}
+  .cover{width:100%;max-width:260px;height:150px;border-radius:12px;object-fit:cover;margin-bottom:14px;box-shadow:0 6px 18px rgba(0,0,0,0.5)}
+  h3{margin:0 0 12px;color:#bfe9ff;font-size:1.15rem;text-align:center}
+  .btn{display:inline-block;width:88%;max-width:230px;padding:12px 14px;border-radius:999px;text-decoration:none;text-align:center;font-weight:800;color:#fff;margin:8px 0;cursor:pointer;border:none}
+  .btn-download{background:linear-gradient(90deg,var(--accent1),var(--accent2));box-shadow:0 8px 20px rgba(58,141,255,0.12)}
+  .btn-download:hover{transform:translateY(-4px)}
+  .btn-hack{background:linear-gradient(90deg,var(--accent3),var(--accent2));box-shadow:0 8px 20px rgba(152,81,255,0.12)}
+  .btn-hack:hover{transform:translateY(-4px)}
+  .btn-torrent{background:linear-gradient(90deg,#ff6b6b,#ff9b6b);box-shadow:0 8px 20px rgba(255,107,107,0.08)}
+  .btn-apk{background:linear-gradient(90deg,#4a75c6,#7593ff);box-shadow:0 8px 20px rgba(75,121,255,0.08)}
+  .meta{font-size:0.9rem;color:var(--muted);margin-top:6px}
+  footer{margin:40px 0 80px;color:var(--muted);text-align:center;font-size:0.9rem}
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="GameHub PRO — Скачать игры" />
-  <meta property="og:description" content="Лучший сайт для скачивания игр на ПК и телефон. Бесплатные и взломанные версии игр." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://yourdomain.com/" />
-  <meta property="og:image" content="https://yourdomain.com/logo.png" />
+  /* Modal */
+  #overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:999}
+  #modal{background:#111727;padding:20px;border-radius:12px;max-width:420px;width:92%;color:var(--white);box-shadow:0 20px 60px rgba(0,0,0,0.6)}
+  #modal p{margin:0 0 18px;font-size:1rem;color:#dbeeff}
+  .modal-actions{display:flex;gap:12px;justify-content:center}
+  .modal-btn{padding:10px 14px;border-radius:10px;font-weight:700;border:none;cursor:pointer}
+  .confirm{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:white}
+  .cancel{background:linear-gradient(90deg,var(--accent3),#6b4cff);color:white}
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="GameHub PRO — Скачать игры" />
-  <meta name="twitter:description" content="Лучший сайт для скачивания игр на ПК и телефон. Бесплатные и взломанные версии игр." />
-  <meta name="twitter:image" content="https://yourdomain.com/logo.png" />
-
-  <style>
-    body, html {
-      margin: 0; padding: 0;
-      min-height: 100vh;
-      background: #0d0f21;
-      color: #eee;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      text-align: center;
-    }
-    header {
-      background: linear-gradient(90deg, #3a8dff, #5cd1ff, #9851ff);
-      padding: 36px 15px;
-      font-weight: 900;
-      font-size: 2.5rem;
-      color: #fff;
-      margin-bottom: 20px;
-    }
-    .search-bar {
-      margin: 0 auto 40px;
-      max-width: 480px;
-    }
-    .search-bar input {
-      width: 100%;
-      padding: 16px 28px;
-      font-size: 1.2rem;
-      border-radius: 50px;
-      border: none;
-      background-color: #1e2340;
-      color: #d0d9ff;
-      outline-offset: 3px;
-      outline-color: #5cd1ff;
-    }
-    main.games {
-      max-width: 1140px;
-      margin: 0 auto 60px;
-      padding: 0 15px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 28px 22px;
-    }
-    article.game {
-      background: #1f2345;
-      border-radius: 24px;
-      padding: 26px 22px 36px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-      transition: box-shadow 0.3s ease, transform 0.3s ease;
-      outline-offset: 3px;
-    }
-    article.game:focus-visible {
-      outline: 3px solid #5cd1ff;
-    }
-    article.game:hover {
-      box-shadow: 0 0 20px #5cd1ffaa;
-      transform: translateY(-6px);
-    }
-    article.game img {
-      width: 100%;
-      max-width: 240px;
-      height: 160px;
-      border-radius: 22px;
-      object-fit: cover;
-      margin-bottom: 22px;
-      user-select: none;
-    }
-    article.game h3 {
-      font-size: 1.45rem;
-      font-weight: 800;
-      margin: 0 0 28px;
-      color: #7fd4ff;
-    }
-    .btn {
-      border: none;
-      border-radius: 45px;
-      padding: 14px 0;
-      width: 90%;
-      max-width: 240px;
-      margin: 10px auto 6px;
-      font-weight: 800;
-      font-size: 1.15rem;
-      cursor: pointer;
-      display: inline-block;
-      color: #fff;
-      text-align: center;
-      text-decoration: none;
-      user-select: none;
-      transition: 
-        background 0.3s ease, 
-        transform 0.3s ease, 
-        box-shadow 0.3s ease;
-    }
-    .btn-primary {
-      background: linear-gradient(90deg, #3a8dff, #5cd1ff);
-    }
-    .btn-primary:hover,
-    .btn-primary:focus {
-      background: linear-gradient(90deg, #1f6fff, #4bd8ff);
-      transform: translateY(-5px);
-      box-shadow: 0 8px 15px rgba(75, 216, 255, 0.7);
-      outline: none;
-    }
-    .btn-warning {
-      background: linear-gradient(90deg, #9851ff, #5cd1ff);
-    }
-    .btn-warning:hover,
-    .btn-warning:focus {
-      background: linear-gradient(90deg, #7a3cff, #4bb6ff);
-      transform: translateY(-5px);
-      box-shadow: 0 8px 15px rgba(75, 216, 255, 0.7);
-      outline: none;
-    }
-    .btn-apk {
-      background: linear-gradient(90deg, #4476ffcc, #7593ffcc);
-    }
-    .btn-apk:hover,
-    .btn-apk:focus {
-      background: linear-gradient(90deg, #2a54ffcc, #5c7cffcc);
-      transform: translateY(-5px);
-      box-shadow: 0 8px 15px rgba(75, 216, 255, 0.7);
-      outline: none;
-    }
-    footer {
-      background: #12182f;
-      color: #a8bbffcc;
-      font-size: 0.9rem;
-      padding: 26px 15px;
-    }
-    #gameList p {
-      font-style: italic;
-      color: #ccc;
-      margin-top: 40px;
-    }
-  </style>
-  <script>
-    const HACK_SITE = 'https://another-hack-site.com';
-
-    const gamesData = [
-      {
-        id: 'stickwarlegacy',
-        title: 'Stick War: Legacy',
-        img: 'https://play-lh.googleusercontent.com/UMCDMUE7Ej03oPzQ2nGJqQ4pJwPGJ8sftrPe6XgxhW0Hc0oRn4YV1jNU2XU7A4QEzpo=w300',
-        download: 'https://apkpure.com/stick-war-legacy/com.maxgames.stickwarlegacy',
-        platform: 'phone'
-      },
-      {
-        id: 'stickwarsaga',
-        title: 'Stick War: Saga',
-        img: 'https://play-lh.googleusercontent.com/k73yW5VuDfjB8JHhVv86jKQj1_4qEYrR2B20TzZBR0b7c5Q4cAcSnsW8M7GbnkIuN6Y=w300',
-        download: 'https://apkpure.com/stick-war-saga/com.maxgames.stickwarsaga',
-        platform: 'phone'
-      },
-      {
-        id: 'gtasanandroid',
-        title: 'GTA: San Andreas (Android)',
-        img: 'https://upload.wikimedia.org/wikipedia/en/c/c4/GTASABOX.jpg',
-        download: 'https://apkpure.com/grand-theft-auto-san-andreas/com.rockstargames.gtasa',
-        platform: 'phone'
-      },
-      {
-        id: 'plantsvszombies',
-        title: 'Plants vs Zombies',
-        img: 'https://play-lh.googleusercontent.com/BYJS2HxGftOaiKSpBCzJ5jCFOPt5ZXQzNTn1T10UuIf4LB5U6ZIsDDm7yxKfp2GblmA=w300',
-        download: 'https://apkpure.com/plants-vs-zombies/com.ea.game.pvzfree_row',
-        platform: 'phone'
-      },
-      {
-        id: 'plantsvszombies2',
-        title: 'Plants vs Zombies 2',
-        img: 'https://play-lh.googleusercontent.com/0m9IRr99x52XupB6iB6-gwEJtMFbRylshbH6Tmn5x4ctu8f3mR3nXfH5u0pREnQbTQ=w300',
-        download: 'https://apkpure.com/plants-vs-zombies-2/com.ea.game.pvz2_row',
-        platform: 'phone'
-      },
-      {
-        id: 'supermarket',
-        title: 'Супермаркет Стор Симулятор',
-        img: 'https://play-lh.googleusercontent.com/6f2oVuKElB9tLCYTT3ZtkWqIfb_pBB5DPIjD2lLZfw5mVXwF7jbnKThB5g0p9TfrCw=w300',
-        download: 'https://apkpure.com/supermarket-simulator/com.sgs.supermarketsim',
-        platform: 'phone'
-      },
-      {
-        id: 'ark',
-        title: 'ARK',
-        img: 'https://upload.wikimedia.org/wikipedia/en/6/6d/ARK_Survival_Evolved_logo.png',
-        download: 'https://store.steampowered.com/app/346110/ARK_Survival_Evolved/',
-        platform: 'pc'
-      },
-      {
-        id: 'gtasanpc',
-        title: 'GTA: San Andreas (PC)',
-        img: 'https://upload.wikimedia.org/wikipedia/en/c/c4/GTASABOX.jpg',
-        download: 'https://store.steampowered.com/app/12120/Grand_Theft_Auto_San_Andreas/',
-        platform: 'pc'
-      },
-      {
-        id: 'garrysmod',
-        title: "Garry's Mod",
-        img: 'https://cdn.cloudflare.steamstatic.com/steam/apps/4000/header.jpg',
-        download: 'https://store.steampowered.com/app/4000/Garrys_Mod/',
-        platform: 'pc'
-      }
-    ];
-
-    function renderGames() {
-      const container = document.getElementById('gameList');
-      container.innerHTML = '';
-
-      gamesData.forEach(game => {
-        const article = document.createElement('article');
-        article.className = 'game';
-        article.tabIndex = 0;
-        article.setAttribute('role', 'listitem');
-        article.setAttribute('aria-label', game.title);
-
-        const img = document.createElement('img');
-        img.src = game.img;
-        img.alt = `Обложка игры ${game.title}`;
-        img.loading = 'lazy';
-        article.appendChild(img);
-
-        const h3 = document.createElement('h3');
-        h3.textContent = game.title;
-        article.appendChild(h3);
-
-        // Скачать кнопка
-        const btnDownload = document.createElement('a');
-        btnDownload.href = game.download;
-        btnDownload.target = '_blank';
-        btnDownload.rel = 'noopener noreferrer';
-        btnDownload.className = 'btn btn-primary';
-        btnDownload.textContent = 'Скачать';
-        btnDownload.setAttribute('aria-label', `Скачать ${game.title}`);
-        article.appendChild(btnDownload);
-
-        // Скачать взлом кнопка ведёт на другой сайт
-        const btnHack = document.createElement('a');
-        btnHack.href = 'https://another-hack-site.com';
-        btnHack.target = '_blank';
-        btnHack.rel = 'noopener noreferrer';
-        btnHack.className = 'btn btn-warning';
-        btnHack.textContent = 'Скачать взлом';
-        btnHack.setAttribute('aria-label', `Скачать взлом ${game.title}`);
-        article.appendChild(btnHack);
-
-        // Кнопка Google Play для мобильных игр
-        if(game.platform === 'phone') {
-          const btnPlay = document.createElement('a');
-          btnPlay.href = `https://play.google.com/store/apps/details?id=${getPlayStoreId(game.download)}`;
-          btnPlay.target = '_blank';
-          btnPlay.rel = 'noopener noreferrer';
-          btnPlay.className = 'btn btn-apk';
-          btnPlay.textContent = 'Google Play';
-          btnPlay.setAttribute('aria-label', `Google Play ${game.title}`);
-          article.appendChild(btnPlay);
-        }
-
-        container.appendChild(article);
-      });
-    }
-
-    // Примерная функция, чтобы вытащить id из apkpure ссылки, для Google Play — можно заменить на настоящие id
-    function getPlayStoreId(apkPureUrl) {
-      try {
-        const url = new URL(apkPureUrl);
-        const paths = url.pathname.split('/');
-        return paths[paths.length - 1] || '';
-      } catch {
-        return '';
-      }
-    }
-
-    function searchGames() {
-      const query = document.getElementById('searchInput').value.trim().toLowerCase();
-      const container = document.getElementById('gameList');
-      container.innerHTML = '';
-
-      if(!query) {
-        renderGames();
-        return;
-      }
-
-      const filtered = gamesData.filter(game => game.title.toLowerCase().includes(query));
-      if(filtered.length === 0) {
-        container.innerHTML = `<p>Игры с названием "<strong>${query}</strong>" не найдены.</p>`;
-        return;
-      }
-
-      filtered.forEach(game => {
-        const article = document.createElement('article');
-        article.className = 'game';
-        article.tabIndex = 0;
-        article.setAttribute('role', 'listitem');
-        article.setAttribute('aria-label', game.title);
-
-        const img = document.createElement('img');
-        img.src = game.img;
-        img.alt = `Обложка игры ${game.title}`;
-        img.loading = 'lazy';
-        article.appendChild(img);
-
-        const h3 = document.createElement('h3');
-        h3.textContent = game.title;
-        article.appendChild(h3);
-
-        const btnDownload = document.createElement('a');
-        btnDownload.href = game.download;
-        btnDownload.target = '_blank';
-        btnDownload.rel = 'noopener noreferrer';
-        btnDownload.className = 'btn btn-primary';
-        btnDownload.textContent = 'Скачать';
-        btnDownload.setAttribute('aria-label', `Скачать ${game.title}`);
-        article.appendChild(btnDownload);
-
-        const btnHack = document.createElement('a');
-        btnHack.href = 'https://another-hack-site.com';
-        btnHack.target = '_blank';
-        btnHack.rel = 'noopener noreferrer';
-        btnHack.className = 'btn btn-warning';
-        btnHack.textContent = 'Скачать взлом';
-        btnHack.setAttribute('aria-label', `Скачать взлом ${game.title}`);
-        article.appendChild(btnHack);
-
-        if(game.platform === 'phone') {
-          const btnPlay = document.createElement('a');
-          btnPlay.href = `https://play.google.com/store/apps/details?id=${getPlayStoreId(game.download)}`;
-          btnPlay.target = '_blank';
-          btnPlay.rel = 'noopener noreferrer';
-          btnPlay.className = 'btn btn-apk';
-          btnPlay.textContent = 'Google Play';
-          btnPlay.setAttribute('aria-label', `Google Play ${game.title}`);
-          article.appendChild(btnPlay);
-        }
-
-        container.appendChild(article);
-      });
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      renderGames();
-      document.getElementById('searchInput').addEventListener('input', searchGames);
-    });
-  </script>
+  @media (max-width:420px){
+    .cover{height:130px}
+    header{padding:20px}
+  }
+</style>
 </head>
 <body>
-<header>GameHub PRO — Скачать игры</header>
-<div class="search-bar">
-  <input id="searchInput" type="search" placeholder="Поиск игр..." aria-label="Поиск игр" autocomplete="off" />
-</div>
-<main class="games" id="gameList" role="list" aria-live="polite" aria-relevant="additions removals"></main>
+<header>GameHub PRO — Каталог игр</header>
 
-<footer>
-  <p>© 2025 GameHub PRO. Все права защищены.</p>
-  <p>Кнопки «Скачать взлом» ведут на сайт <a href="https://another-hack-site.com" target="_blank" rel="noopener noreferrer" style="color:#5cd1ff; text-decoration: underline;">another-hack-site.com</a>.</p>
-</footer>
+<div class="container">
+  <div class="notice">
+    <strong>Внимание:</strong> кнопки «Скачать взлом» и «Скачать торрент» ведут на сторонние ресурсы. Скачивание модифицированных версий и торрентов может нарушать закон и представлять риск заражения — мы не несем ответственности. Переход осуществляется только после вашего подтверждения.
+  </div>
+
+  <main class="grid" id="gameGrid">
+    <!-- Карточки будут отрисованы JS -->
+  </main>
+
+  <footer>
+    © 2025 GameHub PRO. Официальные ссылки ведут на магазины. Ссылки на взломы и торренты — сторонние ресурсы.
+  </footer>
+</div>
+
+<!-- Модал -->
+<div id="overlay" role="dialog" aria-modal="true">
+  <div id="modal" role="document" aria-labelledby="modalTitle">
+    <p id="modalText">Вы собираетесь перейти на внешний ресурс.</p>
+    <div class="modal-actions">
+      <button class="modal-btn confirm" id="modalConfirm">Перейти</button>
+      <button class="modal-btn cancel" id="modalCancel">Отмена</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ========== Настройки ========== */
+/* ЗАМЕНИТЕ на свои сайты, если потребуется.
+   Я ОСТАВИЛ ПРИМЕРЫ-плейсхолдерЫ, чтобы не давать референсы на пиратские ресурсы. */
+const EXTERNAL_HACK_SITE = 'https://example-hack-site.com';
+const EXTERNAL_TORRENT_SITE = 'https://example-torrent-site.com';
+
+/* Игры (я добавил набор — ПК и телефоны). 
+   Поля:
+   - id: уникальный
+   - title: название
+   - cover: изображение (внешний URL)
+   - official: ссылка на официальную страницу/магазин
+   - platform: 'pc' или 'phone'
+*/
+const GAMES = [
+  {
+    id: 'gtasan',
+    title: 'GTA: San Andreas',
+    cover: 'https://upload.wikimedia.org/wikipedia/en/c/c4/GTASABOX.jpg',
+    official: 'https://store.steampowered.com/app/12120/Grand_Theft_Auto_San_Andreas/',
+    platform: 'pc'
+  },
+  {
+    id: 'garrysmod',
+    title: "Garry's Mod",
+    cover: 'https://cdn.cloudflare.steamstatic.com/steam/apps/4000/header.jpg',
+    official: 'https://store.steampowered.com/app/4000/Garrys_Mod/',
+    platform: 'pc'
+  },
+  {
+    id: 'ark',
+    title: 'ARK: Survival Evolved',
+    cover: 'https://cdn.cloudflare.steamstatic.com/steam/apps/346110/header.jpg',
+    official: 'https://store.steampowered.com/app/346110/ARK_Survival_Evolved/',
+    platform: 'pc'
+  },
+  {
+    id: 'stickwar',
+    title: 'Stick War: Legacy',
+    cover: 'https://play-lh.googleusercontent.com/UMCDMUE7Ej03oPzQ2nGJqQ4pJwPGJ8sftrPe6XgxhW0Hc0oRn4YV1jNU2XU7A4QEzpo=w300',
+    official: 'https://play.google.com/store/apps/details?id=com.maxgames.stickwarlegacy',
+    platform: 'phone'
+  },
+  {
+    id: 'pvz',
+    title: 'Plants vs Zombies',
+    cover: 'https://play-lh.googleusercontent.com/BYJS2HxGftOaiKSpBCzJ5jCFOPt5ZXQzNTn1T10UuIf4LB5U6ZIsDDm7yxKfp2GblmA=w300',
+    official: 'https://play.google.com/store/apps/details?id=com.ea.game.pvzfree_row',
+    platform: 'phone'
+  },
+  {
+    id: 'supermarket',
+    title: 'Супермаркет Стор Симулятор',
+    cover: 'https://play-lh.googleusercontent.com/6f2oVuKElB9tLCYTT3ZtkWqIfb_pBB5DPIjD2lLZfw5mVXwF7jbnKThB5g0p9TfrCw=w300',
+    official: 'https://play.google.com/store/apps/details?id=com.sgs.supermarketsim',
+    platform: 'phone'
+  }
+];
+
+/* ========== Рендер карточек ========== */
+const grid = document.getElementById('gameGrid');
+
+function createCard(game) {
+  const card = document.createElement('article');
+  card.className = 'card';
+  card.setAttribute('data-id', game.id);
+
+  const img = document.createElement('img');
+  img.className = 'cover';
+  img.src = game.cover;
+  img.alt = `${game.title} cover`;
+  card.appendChild(img);
+
+  const h = document.createElement('h3');
+  h.textContent = game.title;
+  card.appendChild(h);
+
+  // Официальная кнопка
+  const official = document.createElement('a');
+  official.className = 'btn btn-download';
+  official.href = game.official;
+  official.target = '_blank';
+  official.rel = 'noopener noreferrer';
+  official.textContent = 'Скачать (официально)';
+  card.appendChild(official);
+
+  // Для ПК — добавим кнопку "Скачать торрент"
+  if (game.platform === 'pc') {
+    const torrent = document.createElement('button');
+    torrent.className = 'btn btn-torrent';
+    torrent.type = 'button';
+    torrent.textContent = 'Скачать торрент';
+    torrent.onclick = () => openConfirm(`Вы собираетесь перейти на сайт торрентов для "${game.title}". Скачивание через торренты может нарушать закон и нести риск вредоносного ПО. Перейти?`, () => {
+      // Переход — открывается в новой вкладке
+      window.open(EXTERNAL_TORRENT_SITE + '/' + encodeURIComponent(game.id), '_blank', 'noopener');
+    });
+    card.appendChild(torrent);
+  }
+
+  // Кнопка "Скачать взлом" (для всех) — с предупреждением
+  const hack = document.createElement('button');
+  hack.className = 'btn btn-hack';
+  hack.type = 'button';
+  hack.textContent = 'Скачать взлом';
+  hack.onclick = () => openConfirm(`Вы собираетесь перейти на сторонний ресурс с модифицированными версиями "${game.title}". Такие файлы часто содержат вредоносное ПО и нарушают лицензии. Мы не несем ответственности. Перейти?`, () => {
+    window.open(EXTERNAL_HACK_SITE + '/' + encodeURIComponent(game.id), '_blank', 'noopener');
+  });
+  card.appendChild(hack);
+
+  // Платформенная подпись
+  const meta = document.createElement('div');
+  meta.className = 'meta';
+  meta.textContent = game.platform === 'pc' ? 'Платформа: ПК' : 'Платформа: Мобильный';
+  card.appendChild(meta);
+
+  return card;
+}
+
+function renderAll() {
+  grid.innerHTML = '';
+  for (const g of GAMES) grid.appendChild(createCard(g));
+}
+renderAll();
+
+/* ========== Модальное окно подтверждения ========== */
+const overlay = document.getElementById('overlay');
+const modalText = document.getElementById('modalText');
+const modalConfirm = document.getElementById('modalConfirm');
+const modalCancel = document.getElementById('modalCancel');
+
+let pendingAction = null;
+
+function openConfirm(text, action) {
+  modalText.textContent = text;
+  pendingAction = action;
+  overlay.style.display = 'flex';
+  modalConfirm.focus();
+}
+
+modalConfirm.addEventListener('click', () => {
+  try { if (typeof pendingAction === 'function') pendingAction(); }
+  finally { closeModal(); }
+});
+modalCancel.addEventListener('click', closeModal);
+overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+function closeModal() {
+  overlay.style.display = 'none';
+  pendingAction = null;
+}
+
+/* ========== Доп. функции: добавление новой игры через консоль (dev) ==========
+   Пример: addGame({id:'new',title:'Новая игра',cover:'...',official:'...',platform:'pc'})
+*/
+function addGame(game) {
+  if (!game || !game.id) return;
+  GAMES.push(game);
+  renderAll();
+}
+/* Конец файла */
+</script>
 </body>
 </html>
